@@ -46,6 +46,7 @@ complete <- function(directory, id=1:332){
   
   myfiles<-make_list_data(directory,id)
   
+  # calculate how many row are fully na empty
   complete_one_dataframe <- function(file){
   
       complete_nb<-sum(rowSums(!is.na(file[,c(2,3)]), na.rm = TRUE)==2)  
@@ -61,9 +62,20 @@ complete <- function(directory, id=1:332){
 }
   
   
+corr <- function(directory, threshold ){
+  
+  keep_completed <- function(file){
+    
+    complete_nb<- rowSums(!is.na(file[,c(2,3)]), na.rm = TRUE)==2 
+    complete_nb  
+  }
   
   
-
+  
+  
+  id<-1:332
+  files<- make_list_data(directory,id)
+}
 
 
 
