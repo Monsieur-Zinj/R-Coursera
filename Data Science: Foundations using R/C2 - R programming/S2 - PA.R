@@ -62,19 +62,29 @@ complete <- function(directory, id=1:332){
 }
   
   
-corr <- function(directory, threshold ){
+corr <- function(directory, threshold=0 ){
   
   keep_completed <- function(file){
     
-    complete_nb<- rowSums(!is.na(file[,c(2,3)]), na.rm = TRUE)==2 
-    complete_nb  
+    complete_bool<- rowSums(!is.na(file[,c(2,3)]), na.rm = TRUE)==2 
+    nb_complete<- sum(complete_bool)
+    
+    if(nb_complete>threshold){
+      ret<-cor(file[complete_bool,c(2,3)])[1,2]
+    }
+    else{
+      ret <- NA
+    
+    }
+    ret
   }
   
-  
-  
-  
   id<-1:332
-  files<- make_list_data(directory,id)
+  files_list<- make_list_data(directory,id)
+  cor<-unlist(lapply(files_list,keep_completed))
+  cor<-cor[!is.na(cor)]
+  as.numeric(cor) 
+  
 }
 
 
