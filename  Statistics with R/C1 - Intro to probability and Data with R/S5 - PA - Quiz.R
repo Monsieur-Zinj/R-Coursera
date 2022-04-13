@@ -29,7 +29,8 @@ ggplot(data = sfo_feb_flights, aes(x = arr_delay)) + geom_histogram()
 
 sfo_feb_flights %>%
   group_by(carrier) %>%
-  summarise(IQR = IQR(arr_delay))
+  summarise(IQR = IQR(arr_delay)) %>%
+  arrange(desc(IQR))
 
 #Q4
 # Considering the data from all the NYC airports, 
@@ -102,7 +103,9 @@ ggplot(nycflights,aes(y=speed_avg, x=distance)) + geom_point()
 # that were "delayed" departing arrive "on time"?
 
 
-nycflights<- nycflights %>%   mutate(arr_type = ifelse(arr_delay<=0,"on_time","delayed"))
+nycflights<- nycflights %>%   
+  mutate(arr_type = ifelse(arr_delay<=0,"on_time","delayed"))
 
-nycflights %>% filter(dep_type=="delayed") %>% summarise(dep_del_arr_ontime_rate = sum(arr_type == "on_time")/ n())
+nycflights %>% filter(dep_type=="delayed") %>% 
+  summarise(dep_del_arr_ontime_rate = sum(arr_type == "on_time")/ n())
                                                          
